@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, confu
 
 # # Step 2 read the csv files and create pandas dataframes
 legitimate_df = pd.read_csv("structured_data_legitimate1.csv")
-phishing_df = pd.read_csv("now1_structured_data_phishing.csv")
+phishing_df = pd.read_csv("structured_data_phishing1.csv")
 
 # Step 3 combine legitimate and phishing dataframes, and shuffle
 df1 = pd.concat([legitimate_df, phishing_df], axis=0)
@@ -104,8 +104,8 @@ def calculate_measures(TN, TP, FN, FP):
     model_precision = TP / (TP + FP)
     model_recall = TP / (TP + FN)
     return model_accuracy, model_precision, model_recall
-
-
+#
+#
 rf_accuracy_list, rf_precision_list, rf_recall_list = [], [], []
 dt_accuracy_list, dt_precision_list, dt_recall_list = [], [], []
 nbayes_accuracy_list, nbayes_precision_list, nbayes_recall_list = [], [], []
@@ -113,100 +113,100 @@ ada_accuracy_list, ada_precision_list, ada_recall_list = [], [], []
 xgb_accuracy_list, xgb_precision_list, xgb_recall_list = [], [], []
 
 for i in range(0, K):
-    # ----- RANDOM FOREST ----- #
+     # ----- RANDOM FOREST ----- #
     rf_model.fit(X_train_list[i], Y_train_list[i])
     rf_predictions = rf_model.predict(X_test_list[i])
-    tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=rf_predictions).ravel()
-    rf_accuracy, rf_precision, rf_recall = calculate_measures(tn, tp, fn, fp)
-    rf_accuracy_list.append(rf_accuracy)
-    rf_precision_list.append(rf_precision)
-    rf_recall_list.append(rf_recall)
-
-    # ----- DECISION TREE ----- #
+#     tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=rf_predictions).ravel()
+#     rf_accuracy, rf_precision, rf_recall = calculate_measures(tn, tp, fn, fp)
+#     rf_accuracy_list.append(rf_accuracy)
+#     rf_precision_list.append(rf_precision)
+#     rf_recall_list.append(rf_recall)
+#
+#     # ----- DECISION TREE ----- #
     dt_model.fit(X_train_list[i], Y_train_list[i])
     dt_predictions = dt_model.predict(X_test_list[i])
-    tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=dt_predictions).ravel()
-    dt_accuracy, dt_precision, dt_recall = calculate_measures(tn, tp, fn, fp)
-    dt_accuracy_list.append(dt_accuracy)
-    dt_precision_list.append(dt_precision)
-    dt_recall_list.append(dt_recall)
-
-    # ----- NAIVE BAYES ----- #
+#     tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=dt_predictions).ravel()
+#     dt_accuracy, dt_precision, dt_recall = calculate_measures(tn, tp, fn, fp)
+#     dt_accuracy_list.append(dt_accuracy)
+#     dt_precision_list.append(dt_precision)
+#     dt_recall_list.append(dt_recall)
+#
+#     # ----- NAIVE BAYES ----- #
     nb_model.fit(X_train_list[i], Y_train_list[i])
     nbayes_predictions = nb_model.predict(X_test_list[i])
-    tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=nbayes_predictions).ravel()
-    nbayes_accuracy, nbayes_precision, nbayes_recall = calculate_measures(tn, tp, fn, fp)
-    nbayes_accuracy_list.append(nbayes_accuracy)
-    nbayes_precision_list.append(nbayes_precision)
-    nbayes_recall_list.append(nbayes_recall)
-    #
-    # ----- ADABOOST ----- #
+#     tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=nbayes_predictions).ravel()
+#     nbayes_accuracy, nbayes_precision, nbayes_recall = calculate_measures(tn, tp, fn, fp)
+#     nbayes_accuracy_list.append(nbayes_accuracy)
+#     nbayes_precision_list.append(nbayes_precision)
+#     nbayes_recall_list.append(nbayes_recall)
+#     #
+#     # ----- ADABOOST ----- #
     ada_model.fit(X_train_list[i], Y_train_list[i])
     ada_predictions = ada_model.predict(X_test_list[i])
-    tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=ada_predictions).ravel()
-    ada_accuracy, ada_precision, ada_recall = calculate_measures(tn, tp, fn, fp)
-    ada_accuracy_list.append(ada_accuracy)
-    ada_precision_list.append(ada_precision)
-    ada_recall_list.append(ada_recall)
-
-    # ----- XGBOOST ----- #
+#     tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=ada_predictions).ravel()
+#     ada_accuracy, ada_precision, ada_recall = calculate_measures(tn, tp, fn, fp)
+#     ada_accuracy_list.append(ada_accuracy)
+#     ada_precision_list.append(ada_precision)
+#     ada_recall_list.append(ada_recall)
+#
+#     # ----- XGBOOST ----- #
     xgb_model.fit(X_train_list[i], Y_train_list[i])
     xgb_predictions = xgb_model.predict(X_test_list[i])
-    tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=xgb_predictions).ravel()
-    xgb_accuracy, xgb_precision, xgb_recall = calculate_measures(tn, tp, fn, fp)
-    xgb_accuracy_list.append(xgb_accuracy)
-    xgb_precision_list.append(xgb_precision)
-    xgb_recall_list.append(xgb_recall)
+#     tn, fp, fn, tp = confusion_matrix(y_true=Y_test_list[i], y_pred=xgb_predictions).ravel()
+#     xgb_accuracy, xgb_precision, xgb_recall = calculate_measures(tn, tp, fn, fp)
+#     xgb_accuracy_list.append(xgb_accuracy)
+#     xgb_precision_list.append(xgb_precision)
+#     xgb_recall_list.append(xgb_recall)
+#
+# # Random Forest
+# RF_accuracy = sum(rf_accuracy_list) / len(rf_accuracy_list)
+# RF_precision = sum(rf_precision_list) / len(rf_precision_list)
+# RF_recall = sum(rf_recall_list) / len(rf_recall_list)
+#
+# print("Random Forest accuracy ==> ", RF_accuracy)
+# print("Random Forest precision ==> ", RF_precision)
+# print("Random Forest recall ==> ", RF_recall)
+#
+# # Decision Tree
+# DT_accuracy = sum(dt_accuracy_list) / len(dt_accuracy_list)
+# DT_precision = sum(dt_precision_list) / len(dt_precision_list)
+# DT_recall = sum(dt_recall_list) / len(dt_recall_list)
+#
+# print("Decision Tree accuracy ==> ", DT_accuracy)
+# print("Decision Tree precision ==> ", DT_precision)
+# print("Decision Tree recall ==> ", DT_recall)
+#
+# # Naive Bayes
+# NB_accuracy = sum(nbayes_accuracy_list) / len(nbayes_accuracy_list)
+# NB_precision = sum(nbayes_precision_list) / len(nbayes_precision_list)
+# NB_recall = sum(nbayes_recall_list) / len(nbayes_recall_list)
+#
+# print("Naive Bayes accuracy ==> ", NB_accuracy)
+# print("Naive Bayes precision ==> ", NB_precision)
+# print("Naive Bayes recall ==> ", NB_recall)
+#
+# # AdaBoost
+# ADA_accuracy = sum(ada_accuracy_list) / len(ada_accuracy_list)
+# ADA_precision = sum(ada_precision_list) / len(ada_precision_list)
+# ADA_recall = sum(ada_recall_list) / len(ada_recall_list)
+#
+# print("AdaBoost accuracy ==> ", ADA_accuracy)
+# print("AdaBoost precision ==> ", ADA_precision)
+# print("AdaBoost recall ==> ", ADA_recall)
+#
+# # XGBoost
+# XGB_accuracy = sum(xgb_accuracy_list) / len(xgb_accuracy_list)
+# XGB_precision = sum(xgb_precision_list) / len(xgb_precision_list)
+# XGB_recall = sum(xgb_recall_list) / len(xgb_recall_list)
+#
+# print("XGBoost accuracy ==> ", XGB_accuracy)
+# print("XGBoost precision ==> ", XGB_precision)
+# print("XGBoost recall ==> ", XGB_recall)
 
-# Random Forest
-RF_accuracy = sum(rf_accuracy_list) / len(rf_accuracy_list)
-RF_precision = sum(rf_precision_list) / len(rf_precision_list)
-RF_recall = sum(rf_recall_list) / len(rf_recall_list)
-
-print("Random Forest accuracy ==> ", RF_accuracy)
-print("Random Forest precision ==> ", RF_precision)
-print("Random Forest recall ==> ", RF_recall)
-
-# Decision Tree
-DT_accuracy = sum(dt_accuracy_list) / len(dt_accuracy_list)
-DT_precision = sum(dt_precision_list) / len(dt_precision_list)
-DT_recall = sum(dt_recall_list) / len(dt_recall_list)
-
-print("Decision Tree accuracy ==> ", DT_accuracy)
-print("Decision Tree precision ==> ", DT_precision)
-print("Decision Tree recall ==> ", DT_recall)
-
-# Naive Bayes
-NB_accuracy = sum(nbayes_accuracy_list) / len(nbayes_accuracy_list)
-NB_precision = sum(nbayes_precision_list) / len(nbayes_precision_list)
-NB_recall = sum(nbayes_recall_list) / len(nbayes_recall_list)
-
-print("Naive Bayes accuracy ==> ", NB_accuracy)
-print("Naive Bayes precision ==> ", NB_precision)
-print("Naive Bayes recall ==> ", NB_recall)
-
-# AdaBoost
-ADA_accuracy = sum(ada_accuracy_list) / len(ada_accuracy_list)
-ADA_precision = sum(ada_precision_list) / len(ada_precision_list)
-ADA_recall = sum(ada_recall_list) / len(ada_recall_list)
-
-print("AdaBoost accuracy ==> ", ADA_accuracy)
-print("AdaBoost precision ==> ", ADA_precision)
-print("AdaBoost recall ==> ", ADA_recall)
-
-# XGBoost
-XGB_accuracy = sum(xgb_accuracy_list) / len(xgb_accuracy_list)
-XGB_precision = sum(xgb_precision_list) / len(xgb_precision_list)
-XGB_recall = sum(xgb_recall_list) / len(xgb_recall_list)
-
-print("XGBoost accuracy ==> ", XGB_accuracy)
-print("XGBoost precision ==> ", XGB_precision)
-print("XGBoost recall ==> ", XGB_recall)
-
-data = {'accuracy': [RF_accuracy, DT_accuracy, NB_accuracy, ADA_accuracy, RF_accuracy],
-        'precision': [RF_precision, DT_precision, NB_precision, ADA_precision, XGB_precision],
-        'recall': [RF_recall, DT_recall, NB_recall, ADA_recall, XGB_recall]
-        }
+# data = {'accuracy': [RF_accuracy, DT_accuracy, NB_accuracy, ADA_accuracy, RF_accuracy],
+#         'precision': [RF_precision, DT_precision, NB_precision, ADA_precision, XGB_precision],
+#         'recall': [RF_recall, DT_recall, NB_recall, ADA_recall, XGB_recall]
+#         }
 
 index = ['RF', 'DT', 'NB', 'ADA', 'XGB']
 
