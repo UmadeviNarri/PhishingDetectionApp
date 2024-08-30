@@ -8,7 +8,7 @@ from sklearn import tree
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
-import xgboost as xgb
+from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
 
 # # Step 2 read the csv files and create pandas dataframes
@@ -54,7 +54,7 @@ nb_model = GaussianNB()
 ada_model = AdaBoostClassifier()
 
 # XGBoost
-xgb_model = xgb.XGBClassifier(objective="binary:logistic", random_state=42)
+xgb_model = XGBClassifier(objective="binary:logistic", random_state=42)
 
 # K-fold cross validation, and K = 5
 K = 5
