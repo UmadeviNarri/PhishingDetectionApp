@@ -1,5 +1,5 @@
 beautifulsoup4==4.11.1
-matplotlib==3.8im.2
+matplotlib==3.8.2
 numpy==1.26.0
 pandas==2.1.1
 requests==2.31.0
